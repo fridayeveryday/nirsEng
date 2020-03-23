@@ -5,23 +5,23 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    List<pairOfWord> words = new List<pairOfWord>();
+    public List<pairOfWord> words = new List<pairOfWord>();
     DBManager dbMan;
-    static GameManager getInstance()
+    public static GameManager getInstance()
     {
         if (!instance)
-            instance = new GameManager();
+        {
+            GameObject gameMan = new GameObject("gameMan");
+            instance = gameMan.AddComponent<GameManager>();
+
+        }
+            //instance = new GameManager();
         return instance;
     }
 
 
 
     private void Awake()
-    {
-        
-    }
-    // Start is called before the first frame update
-    void Start()
     {
         dbMan = DBManager.getInstance();
         // dbMan = DBManager.getInstance();
@@ -32,6 +32,11 @@ public class GameManager : MonoBehaviour
             dbMan.connect();
             dbMan.executeData(words);
         }
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+       
 
         int a = 0;
     }

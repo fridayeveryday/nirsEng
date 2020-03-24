@@ -21,7 +21,15 @@ public class AdderANewPair : MonoBehaviour
 
     public void addPair2db()
     {
-        if(!gameMan.dbMan.insertData2DB(inFieldWord.text, inFieldTranslate.text))
+        pairOfWord pOFW;
+        pOFW.word = inFieldWord.text.ToString();
+        pOFW.translate = inFieldTranslate.text.ToString();
+
+        
+        if(gameMan.words.Contains(pOFW))
+            gameMan.words.Add(pOFW);
+
+        if(!gameMan.dbMan.insertData2DB(inFieldWord.text.ToString(), inFieldTranslate.text.ToString()))
         {
             Error.text = errorStr;
         }

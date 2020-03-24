@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Mono.Data.Sqlite;
 using System.Data;
 using System;
 using System.IO;
-using UnityEngine.Networking;
 
 public struct pairOfWord
 {
@@ -18,7 +16,7 @@ public class DBManager : MonoBehaviour
     //Dictionary<string, string> words = new Dictionary<string, string>();
     private SqliteConnection con2db;
     private string path2db; //путь
-    private string dbName = "db.s3db";
+    private string dbName = "db.bytes";
     private SqliteCommand cmd2db;
     public SqliteDataReader dbReader;
 
@@ -65,18 +63,18 @@ public class DBManager : MonoBehaviour
 
             con2db = new SqliteConnection("URI=file:" + path2db);
             con2db.Open();
-            if (con2db.State == ConnectionState.Open)
-            {
-                Debug.Log("connected!!");
-            }
-            else
-            {
-                Debug.Log("pisos");
-            }
+            //if (con2db.State == ConnectionState.Open)
+            //{
+            //    //Debug.Log("connected!!");
+            //}
+            //else
+            //{
+            //    //Debug.Log("pisos");
+            //}
         }
         catch(Exception exeption)
         {
-            Debug.Log(exeption.ToString());
+            //Debug.Log(exeption.ToString());
         }
       
     }
@@ -87,7 +85,7 @@ public class DBManager : MonoBehaviour
             con2db.Close();
         }
         catch (Exception ex) {
-            Debug.Log(ex.ToString());
+            //Debug.Log(ex.ToString());
         }
     }
 
@@ -108,13 +106,13 @@ public class DBManager : MonoBehaviour
             }
             catch (Exception ex)
             {
-                Debug.Log(ex.ToString());
+                //Debug.Log(ex.ToString());
             }
             return true;
         }
         else
         {
-            Debug.Log("yet exist");
+            //Debug.Log("yet exist");
             return false;
         }
        
@@ -153,7 +151,7 @@ public class DBManager : MonoBehaviour
         }
         catch(Exception ex)
         {
-            Debug.Log(ex.ToString());
+            //Debug.Log(ex.ToString());
         }
        
     }

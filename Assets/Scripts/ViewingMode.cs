@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,7 +50,7 @@ public class ViewingMode : MonoBehaviour
             () =>
             {
                 deletePairFromUIAndDb(item);
-                Debug.Log("one needs Delete");
+               // Debug.Log("one needs Delete");
             }
         );
     }

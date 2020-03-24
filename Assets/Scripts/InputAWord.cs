@@ -12,13 +12,16 @@ public class InputAWord : MonoBehaviour
     [SerializeField] string typeInputField;
 
     [SerializeField] InputField inputField;
+
+
+
    public void openKeyboard()
    {
         TouchScreenKeyboard.hideInput = true;
         keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
-      
-        
-   }
+        TouchScreenKeyboard.hideInput = true;
+
+    }
 
 
     public void getInNewPair2db()
@@ -45,7 +48,6 @@ public class InputAWord : MonoBehaviour
 
         if (string.IsNullOrEmpty(inputedText.text))
         {
-            
             placeholder.GetComponent<Text>().text = "Input a " + typeInputField;
         }
         else

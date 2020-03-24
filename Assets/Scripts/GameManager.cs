@@ -1,13 +1,19 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public List<pairOfWord> words = new List<pairOfWord>();
-    DBManager dbMan;
+    public  DBManager dbMan;
 
-    [SerializeField] GameObject addNewWordPanel;
+
+    public void getAndPasteNewPair(string word, string translate)
+    {
+        dbMan.insertData2DB(word, translate);
+    }
+
     public static GameManager getInstance()
     {
         if (!instance)
@@ -15,19 +21,27 @@ public class GameManager : MonoBehaviour
             GameObject gameMan = new GameObject("gameMan");
             instance = gameMan.AddComponent<GameManager>();
 
+
         }
             //instance = new GameManager();
         return instance;
     }
 
 
-   public void enableAndDisableAddNewWordPanel()
-    {
-        addNewWordPanel.active = !addNewWordPanel.active;
-
-    }
+  
     private void Awake()
     {
+        if (!instance)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+
+
         dbMan = DBManager.getInstance();
         // dbMan = DBManager.getInstance();
         if (!dbMan) { }

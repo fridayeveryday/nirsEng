@@ -28,6 +28,14 @@ public class DBManager : MonoBehaviour
 
     private void Awake()
     {
+        if (!instance)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         connect();
     }
 
@@ -89,7 +97,7 @@ public class DBManager : MonoBehaviour
         }
     }
 
-    bool insertData2DB(string word, string translate)
+   public bool insertData2DB(string word, string translate)
     {
         string com4existingNewWord = "SELECT * FROM words WHERE word = '" + word +
             "'and translate = '" + translate + "';";

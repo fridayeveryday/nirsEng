@@ -21,10 +21,6 @@ public class AdderANewPair : MonoBehaviour
 
     public void addPair2db()
     {
-
-       // Debug.Log(gameMan.dbMan.insertData2DB("круто", "cool"));
-
-
         pairOfWord pOFW;
         pOFW.word = inFieldWord.text.ToString();
         pOFW.translate = inFieldTranslate.text.ToString();
@@ -40,7 +36,7 @@ public class AdderANewPair : MonoBehaviour
             Error.text += pOFW.word + " " + pOFW.translate;
             gameMan.words.Add(pOFW);
             gameMan.dbMan.insertData2DB(pOFW.word, pOFW.translate);
-            Error.color = new Color(47, 255, 0);
+            Error.color = new Color(155, 242, 24);
             Error.text += "Your pair was added";
 
         }
@@ -49,13 +45,9 @@ public class AdderANewPair : MonoBehaviour
             Error.color = new Color(255, 0, 0);
             Error.text += "This word pair already exists!";
         }
+        inFieldTranslate.text = "";
+        inFieldWord.text = "";
 
-
-        //if (!gameMan.dbMan.insertData2DB(pOFW.word, pOFW.translate))
-        //{
-        //    Error.text += errorStr;
-        //}
-        ////inFieldWord.text
     }
 
 }

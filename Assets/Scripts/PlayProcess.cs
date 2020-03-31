@@ -17,14 +17,7 @@ public class PlayProcess : MonoBehaviour
     //public Button lowerButton;
 
 
-    bool usedRightWord = false;
-    bool usedWithE = false;
-    bool usedWithRandom = false;
-
-    bool isOccupiedUpper = false;
-    bool isOccupiedMiddle = false;
-    bool isOccupiedLower = false;
-
+    
     int[] wordOrder = new int[3];
 
     
@@ -34,15 +27,25 @@ public class PlayProcess : MonoBehaviour
     int lenghtAlphabet = alphabet.Length;
 
 
-
-    private void Awake()
+    private void OnDisable()
     {
         Time.timeScale = 1;
     }
+
+    /// <summary>
+    /// time is 1 when we go here from a pause
+    /// </summary>
+    private void Awake()
+    {
+        
+    }
     // Start is called before the first frame update
+
     void Start()
     {
         gameMan = GameManager.getInstance();
+        gameMan.score = 0;
+        gameMan.total = -1;// why -1 see to the Game Manager
         startANewPhase();
     }
 
@@ -129,13 +132,16 @@ public class PlayProcess : MonoBehaviour
         {
             startANewPhase();
         }
-        displayRightAndTotalScore();
-        displayRightAnswers();
+        
         Debug.Log(rightAndTotalScore.text.ToString());
         
     }
 
+    /// <summary>
+    /// timeBar is a image showing a stayed time
+    /// </summary>
     public Image timeBar;
+   
     float fillAmountIncreament = 0.01f;
     /// <summary>
     /// It's a part of UI; fill time bar that show the time to answer
@@ -149,11 +155,23 @@ public class PlayProcess : MonoBehaviour
         }
     } 
 
-
+    /// <summary>
+    /// mainPair is a pair of word and its translate
+    /// </summary>
     pairOfWord mainPair;
+    /// <summary>
+    /// wordChangedByE is a word with added letter 'e' ot removed that letter
+    /// </summary>
     string wordChangedByE;
+    /// <summary>
+    /// wordChangedByRandomLetter is a word with a replaced random letter inside 
+    /// </summary>
     string wordChangedByRandomLetter;
 
+    /// <summary>
+    /// start a new phase that is choose a new pair of words, distort english word, 
+    /// add one the scene, begin time bar and show player's score
+    /// </summary>
     void startANewPhase()
     {
         gameMan.total++;
@@ -164,6 +182,8 @@ public class PlayProcess : MonoBehaviour
         addWordsAtScene(mainPair, wordChangedByE, wordChangedByRandomLetter);
         timeBar.fillAmount = 0;
         StartCoroutine("fillTimeBar");
+        displayRightAndTotalScore();
+        displayRightAnswers();
 
     }
 
@@ -171,6 +191,9 @@ public class PlayProcess : MonoBehaviour
 
     public string text4CurrentResult = "Your current succes is";
     public Text scoreText;
+    /// <summary>
+    /// display only right answers on the game panel
+    /// </summary>
     void displayRightAnswers()
     {
         scoreText.text = text4CurrentResult + " " + gameMan.score.ToString();
@@ -178,11 +201,18 @@ public class PlayProcess : MonoBehaviour
 
     public string text4TotalResult = "Your current succes is ";
     public Text rightAndTotalScore;
+    /// <summary>
+    /// show your right answers by all loaded phase
+    /// </summary>
     void displayRightAndTotalScore()
     {
-        rightAndTotalScore.text = text4TotalResult + gameMan.score.ToString() + "/" + gameMan.total.ToString();
+        rightAndTotalScore.text = text4TotalResult + gameMan.score.ToString() + " out of " + gameMan.total.ToString();
 
     }
+    /// <summary>
+    /// check a chosen answer with main pair
+    /// </summary>
+    /// <param name="text"></param>
     public void checkAnswer(Text text)
     {
         if (text.text == mainPair.word)
@@ -192,11 +222,7 @@ public class PlayProcess : MonoBehaviour
 
     }
 
-    // pairOfWord currentPairOfW;
-    private void OnLevelWasLoaded(int level)
-    {
-       // startANewPhase();
-    }
+   
 
     /// <summary>
     /// generator of a nonrepeating sequence for placement answers

@@ -45,5 +45,5 @@ public class Navigation : MonoBehaviour
     }
 
 
-
+    public void exit() => Application.Quit();
 }

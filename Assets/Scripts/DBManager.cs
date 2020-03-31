@@ -24,7 +24,7 @@ public class DBManager : MonoBehaviour
 
 
 
-    [SerializeField] string command = "SELECT * FROM words;";
+    
 
     private void Awake()
     {
@@ -97,13 +97,19 @@ public class DBManager : MonoBehaviour
         }
     }
 
-   public bool insertData2DB(string word, string translate)
+    /// <summary>
+    /// put in the database a new pair (word and translate)
+    /// </summary>
+    /// <param name="word"></param>
+    /// <param name="translate"></param>
+    /// <returns>return true or false if insert is succesful or not </returns>
+    public bool insertData2DB(string word, string translate)
     {
         string com4existingNewWord = "SELECT * FROM words WHERE word = '" + word +
             "'and translate = '" + translate + "';";
         cmd2db = new SqliteCommand(com4existingNewWord, con2db);
-
-        if (cmd2db.ExecuteNonQuery() != 0)
+       
+        if (cmd2db.ExecuteNonQuery() == 0)
         {
             try
             {
@@ -111,12 +117,14 @@ public class DBManager : MonoBehaviour
                         "VALUES ('" + word + "', '" + translate + "');";
                 cmd2db = new SqliteCommand(insCom, con2db);
                 cmd2db.ExecuteNonQuery();
+                return true;
             }
             catch (Exception ex)
             {
+                return false;
                 //Debug.Log(ex.ToString());
             }
-            return true;
+           
         }
         else
         {
@@ -126,7 +134,12 @@ public class DBManager : MonoBehaviour
        
     }
 
-    
+    [SerializeField] string command = "SELECT * FROM words;";
+
+    /// <summary>
+    /// get a pair (word and translate) from database
+    /// </summary>
+    /// <param name="words"> words is a list of pairs for adding in it from db </param>   
     public void executeData(List<pairOfWord> words )
     {
         
@@ -164,11 +177,6 @@ public class DBManager : MonoBehaviour
        
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
     private void OnDestroy()
     {
         disconnect();

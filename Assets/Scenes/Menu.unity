@@ -190,7 +190,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The best way to learn something is the game
+  m_Text: The best way to learn something is the game.
 --- !u!222 &203497675
 CanvasRenderer:
   m_ObjectHideFlags: 0

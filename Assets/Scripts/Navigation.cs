@@ -29,19 +29,19 @@ public class Navigation : MonoBehaviour
     public void startLearn() => SceneManager.LoadScene((int)scenes.PlayMode);
    
 
-    public void enableOrDisablePauseInPlayProcess(GameObject pausePanel){ 
-        if(pausePanel.activeInHierarchy)
+    public void enableOrDisablePauseInPlayProcess(GameObject pausePanel){
+        if (!pausePanel.activeInHierarchy)
+        {
+            pausePanel.SetActive(true);
+            Time.timeScale = 0;
+
+        }
+        else
         {
             pausePanel.SetActive(false);
             Time.timeScale = 1;
         }
-        else
-        {
-            pausePanel.SetActive(true);
-            Time.timeScale = 0;
-            
-        }
-        
+
     }
 
 

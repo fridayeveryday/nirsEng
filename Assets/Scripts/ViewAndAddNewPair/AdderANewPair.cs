@@ -10,7 +10,7 @@ public class AdderANewPair : MonoBehaviour
     [SerializeField] InputField inFieldWord;
     [SerializeField] InputField inFieldTranslate;
 
-    [SerializeField] Text Error;
+    [SerializeField] Text message;
     [SerializeField] string errorStr = "that word yet exists";
 
 
@@ -22,31 +22,33 @@ public class AdderANewPair : MonoBehaviour
     public void addPair2db()
     {
         pairOfWord pOFW;
-        pOFW.word = inFieldWord.text.ToString();
-        pOFW.translate = inFieldTranslate.text.ToString();
+        pOFW.word = inFieldWord.text.ToString().Trim();
+        pOFW.translate = inFieldTranslate.text.ToString().Trim();
 
         pOFW.word.ToLower();
         pOFW.translate.ToLower();
 
         pOFW.word.Trim();
         pOFW.translate.Trim();
+        message.text = "";
 
         if (!gameMan.words.Contains(pOFW))
         {
-            Error.text += pOFW.word + " " + pOFW.translate;
+            message.text += "\"" + pOFW.word + "-" + pOFW.translate + "\" ";
             gameMan.words.Add(pOFW);
             gameMan.dbMan.insertData2DB(pOFW.word, pOFW.translate);
-            Error.color = new Color(155, 242, 24);
-            Error.text += "Your pair was added";
+            message.color = new Color(155, 242, 24);
+            message.text += "pair was added!";
+            inFieldTranslate.text = "";
+            inFieldWord.text = "";
 
         }
         else
         {
-            Error.color = new Color(255, 0, 0);
-            Error.text += "This word pair already exists!";
+            message.color = new Color(255, 0, 0);
+            message.text += "This word pair already exists!";
         }
-        inFieldTranslate.text = "";
-        inFieldWord.text = "";
+       
 
     }
 

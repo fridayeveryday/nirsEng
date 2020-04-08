@@ -209,6 +209,8 @@ public class PlayProcess : MonoBehaviour
         rightAndTotalScore.text = text4TotalResult + gameMan.score.ToString() + " out of " + gameMan.total.ToString();
 
     }
+
+    tripleOfWords error;
     /// <summary>
     /// check a chosen answer with main pair
     /// </summary>
@@ -217,6 +219,13 @@ public class PlayProcess : MonoBehaviour
     {
         if (text.text == mainPair.word)
             gameMan.score++;
+        else
+        {
+            error.translate = mainPair.translate;
+            error.word = mainPair.word;
+            error.wrongWord = text.text.ToString();
+            gameMan.tripleWWrongs.Add(error);
+        }
           
         startANewPhase();
 

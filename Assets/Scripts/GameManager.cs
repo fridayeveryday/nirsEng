@@ -2,13 +2,20 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public struct tripleOfWords
+{
+    public string word;
+    public string translate;
+    public string wrongWord;
+ 
+}
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public List<pairOfWord> words = new List<pairOfWord>();
     public  DBManager dbMan;
 
-
+    public List<tripleOfWords> tripleWWrongs = new List<tripleOfWords>();
 
     /// <summary>
     /// show right answers
@@ -30,17 +37,17 @@ public class GameManager : MonoBehaviour
     {
         if (!instance)
         {
-            GameObject gameMan = new GameObject("gameMan");
-            instance = gameMan.AddComponent<GameManager>();
+            GameObject gameman = new GameObject("gameMan");
+            instance = gameman.AddComponent<GameManager>();
 
 
         }
-            //instance = new GameManager();
+        //instance = new GameManager();
         return instance;
     }
 
 
-  
+
     private void Awake()
     {
         if (!instance)
@@ -55,15 +62,11 @@ public class GameManager : MonoBehaviour
 
 
         dbMan = DBManager.getInstance();
-        // dbMan = DBManager.getInstance();
-        if (!dbMan) { }
-        //Debug.Log("pizzzzzdec");
-        else
-        {
-            dbMan.connect();
-            dbMan.executeData(words);
-        }
+        dbMan.connect();
+        dbMan.executeData(words);
+        int a = 0;
     }
+       
     // Start is called before the first frame update
     
 }

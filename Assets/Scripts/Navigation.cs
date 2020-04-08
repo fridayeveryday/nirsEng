@@ -8,7 +8,8 @@ public enum scenes
     Menu = 0,
     ViewingMode,
     AddNewPair,
-    PlayMode
+    PlayMode, 
+    ViewWrongs
 }
 public class Navigation : MonoBehaviour
 {
@@ -27,7 +28,10 @@ public class Navigation : MonoBehaviour
 
 
     public void startLearn() => SceneManager.LoadScene((int)scenes.PlayMode);
-   
+
+
+    public void go2ViewWrongs() => SceneManager.LoadScene((int)scenes.ViewWrongs);
+
 
     public void enableOrDisablePauseInPlayProcess(GameObject pausePanel){
         if (!pausePanel.activeInHierarchy)

@@ -6,32 +6,56 @@ public class ViewingMode : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] private RectTransform pairOfWord;
+    public RectTransform unitOfWords;
 
-    [SerializeField] private RectTransform content;
-    GameManager gameMan;
+    public RectTransform content;
+    public GameManager gameMan;
     pairOfWord pOWord;
 
+    public GameObject scrollBar;
 
-    private void Awake()
+    void Awake()
     {
         gameMan = GameManager.getInstance();
         addListofPairs();
+
     }
+
+    private void Start()
+    {
+        //downScBar();
+        //scrollBar.GetComponent<Scrollbar>().value = 0;
+    }
+    //void downScBar() => GameObject.Find("Scrollbar").GetComponent<Scrollbar>().value = 0.0f;
+    
+    private void FixedUpdate()
+    {
+
+        
+        Debug.Log(GameObject.Find("Scrollbar").GetComponent<Scrollbar>().value);
+
+
+    }
+
 
     void addListofPairs()
     {
-        foreach (pairOfWord pair in gameMan.words)
+        for(int i = gameMan.words.Count - 1; i >=0; i--)
         {
-            //var instance = GameObject.Instantiate(pairOfWord.gameObject) as GameObject;
-            //instance.transform.SetParent(content, false);
-            GameObject newPair = GameObject.Instantiate(pairOfWord.gameObject, content) as GameObject;
-            inputTextIntoPairOfWord(newPair, pair);
-                //Instantiate(pairOfWord, content);
-
+            GameObject newPair = Instantiate(unitOfWords.gameObject, content) as GameObject;
+            inputTextIntoUnitOfWords(newPair, gameMan.words[i]);
         }
-    }
 
+        //foreach (pairOfWord pair in gameMan.words)
+        //{
+            
+        //    GameObject newPair = Instantiate(unitOfWords.gameObject, content) as GameObject;
+        //    inputTextIntoUnitOfWords(newPair, pair);
+               
+        //}
+        //downScBar();
+    }
+    bool delete = false;
     void deletePairFromUIAndDb(GameObject item)
     {
         pairOfWord pOFW;
@@ -39,10 +63,11 @@ public class ViewingMode : MonoBehaviour
         pOFW.translate = item.transform.Find("Translate").GetComponent<Text>().text;
         gameMan.words.Remove(pOFW);
         Destroy(item);
+        delete = true;
 
     }
 
-    void inputTextIntoPairOfWord(GameObject item, pairOfWord pOfW)
+    void inputTextIntoUnitOfWords(GameObject item, pairOfWord pOfW)
     {
         item.transform.Find("Word").GetComponent<Text>().text = pOfW.word;
         item.transform.Find("Translate").GetComponent<Text>().text = pOfW.translate;
@@ -55,10 +80,5 @@ public class ViewingMode : MonoBehaviour
         );
     }
 
-    void Start()
-    {
-        
-    }
 
-    
 }
